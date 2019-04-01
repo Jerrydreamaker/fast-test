@@ -31,7 +31,7 @@ public class FastDfsReadTask implements Callable{
         System.out.println("FastDFS_ReadThread-" + this.threadOrder + ":  Start to work!");
         long threadStartTime = System.currentTimeMillis();
         for(int i=0;i<fileNum;i++){
-            String metaKey="Thread-"+this.threadOrder+"_File-"+i;
+            String metaKey="FastDfs--Thread-"+this.threadOrder+"_File-"+i;
             try {
                 storageClient1.download_file1(jedis.get(metaKey));
             } catch (IOException e) {

@@ -37,7 +37,7 @@ public class FastDfsWriteTask implements Callable{
         System.out.println("FastDFS_WriteThread-" + this.threadOrder + ":  Start to work!");
         long threadStartTime = System.currentTimeMillis();
         for(int i=0;i<fileNum;i++){
-            String metaKey="Thread-"+this.threadOrder+"_File-"+i;
+            String metaKey="FastDfs--Thread-"+this.threadOrder+"_File-"+i;
             try {
                 jedis.set(metaKey,storageClient1.upload_file1(writeBuffer,null,null));
             } catch (IOException e) {

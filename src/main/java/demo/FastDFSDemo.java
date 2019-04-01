@@ -74,11 +74,11 @@ public class FastDFSDemo {
         //threadVector=new Vector<Thread>();//初始化threadVector
         countDownLatch=new CountDownLatch(threadNum);//初始化CountDownLatch
         jedisPool= RedisUtil.createJedisPool(threadNum,10,"192.168.1.149",6379);
-        storageClient1Pool= FastDFSUtil.createStorageClint1Pool("C:\\code\\fast-test\\src\\main\\resources\\client.conf",threadNum);
+        storageClient1Pool= FastDFSUtil.createStorageClint1Pool("D:\\softwares\\test\\fast-test\\src\\main\\resources\\client.conf",threadNum);
         return 0;
     }
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
-        args=new String[]{"-optype", "read", "-fileNum", "10", "-fileSize", "1KB", "-threadNum", "5"};
+        args=new String[]{"-optype", "write", "-fileNum", "10", "-fileSize", "1KB", "-threadNum", "5"};
         int ret = init(args);//读取命令行输入参数，初始化变量。
         if (ret < 0) {
             System.exit(-1);
@@ -123,14 +123,13 @@ public class FastDFSDemo {
         System.out.println("Total Time:"+execTime);
         System.out.println("TotalFileNum:"+(fileNum*threadNum));//读写文件总数。
         System.out.println("OPS(N/s):"+(fileNum*threadNum*1000/execTime));//每秒读写文件数。
-        System.out.println("ThreadNum"+threadNum);//线程数。
+        System.out.println("ThreadNum："+threadNum);//线程数。
         long SumOfThreadTime=0;
         for (int i=0;i<threadNum;i++){
             SumOfThreadTime+=threadTime[i];
             System.out.println(threadTime[i]);
         }
         System.out.println("SumOfThreadTime:" + SumOfThreadTime);//线程总执行时间，小于任务总执行时间。差距越大，任务并发度越高。
-        System.out.println("threadNum"+threadNum);
         System.out.println("ThreadAvgTime(ms):"+(SumOfThreadTime/threadNum));//线程平均执行时间，小于任务总执行时间。差距越大，任务并发度越高。
         System.out.println("测试结束!!!");
         return;
